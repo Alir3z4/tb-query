@@ -1,0 +1,131 @@
+[build-system]
+requires = ["setuptools>=61.2", "setuptools_scm[toml]>=3.4.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tb-query"
+description = "A CLI tool and MCP (Model Context Protocol) server for querying and analyzing TensorBoard event files without requiring a running TensorBoard server."
+readme = "README.md"
+authors = [{name = "Alireza Savand", email = "alireza.savand@gmail.com"}]
+license = "GPL-3.0-or-later"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Monitoring",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+    "Environment :: Console",
+]
+requires-python = ">=3.11"
+dynamic = ["version"]
+dependencies = [
+  "tensorboard==2.20.0",
+  "fastmcp==2.13.0.2",
+  "pandas==2.3.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/Alir3z4/tb-query"
+Repository = "https://github.com/Alir3z4/tb-query.git"
+Issues = "https://github.com/Alir3z4/tb-query/issues"
+Changelog = "https://github.com/Alir3z4/tb-query/blob/master/ChangeLog.md"
+
+[project.optional-dependencies]
+dev = [
+    "black==25.9.0",
+    "mypy==1.18.2",
+    "flake8==7.3.0",
+    "isort==7.0.0",
+    "coverage==7.11.0",
+]
+
+[project.scripts]
+tb-query = "tb_query.cli:cli"
+tb-query-mcp = "tb_query.mcp:main"
+
+[tool.setuptools_scm]
+version_file = "src/tb_query/_version.py"
+
+[tool.setuptools]
+packages = ["tb_query"]
+package-dir = {"" = "src"}
+
+
+[tool.mypy]
+python_version = "3.13"
+exclude_gitignore = true
+disable_error_code = "import-untyped"
+
+[tool.coverage.run]
+cover_pylib = false
+omit = [
+    "*site-packages*",
+    "*distutils*",
+    "venv/*",
+    ".venv/*",
+    "_version.py",
+]
+
+[tool.coverage.report]
+precision = 3
+show_missing = true
+ignore_errors = true
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "def __str__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+]
+skip_covered = true
+
+
+[tool.black]
+line-length = 120
+target-version = ['py313']
+extend-exclude = '''
+/(
+  build
+  | \.venv
+)/
+'''
+
+
+[tool.isort]
+line_length = 120
+extend_skip = ["src/tb_quuery/_version.py"]
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+indent = 4
+multi_line_output = 3
+include_trailing_comma = true
+order_by_type = true
+combine_as_imports = true
+lines_after_imports = 2
+float_to_top = true
+atomic = true

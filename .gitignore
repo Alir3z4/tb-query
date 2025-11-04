@@ -1,0 +1,20 @@
+# IDE specific
+.idea/
+.spyderproject
+# file
+*.pyc
+manage.py
+dump.json
+MANIFEST
+# dir
+build/
+dist/
+*.egg-info/
+logs/
+bin/
+develop-eggs/
+eggs/
+coverage.xml
+.coverage
+build
+src/tb_query/_version.py
